@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
-using NUnit.Framework.Internal.Execution;
 using UglyTrivia;
 
 namespace Trivia.UnitTests
@@ -24,26 +19,25 @@ namespace Trivia.UnitTests
                 Console.SetOut(streamWriter);
                 var aGame = new Game();
 
-                aGame.add("Chet");
-                aGame.add("Pat");
-                aGame.add("Sue");
+                aGame.Add("Chet");
+                aGame.Add("Pat");
+                aGame.Add("Sue");
 
                 var rand = new Random(seed);
 
                 do
                 {
-                    aGame.roll(rand.Next(5) + 1);
+                    aGame.Roll(rand.Next(5) + 1);
 
                     if (rand.Next(9) == 7)
                     {
-                        _notAWinner = aGame.wrongAnswer();
+                        _notAWinner = aGame.WrongAnswer();
                     }
                     else
                     {
-                        _notAWinner = aGame.wasCorrectlyAnswered();
+                        _notAWinner = aGame.WasCorrectlyAnswered();
                     }
                 } while (_notAWinner);
-
 
                 streamWriter.Flush();
                 var actual = streamWriter.GetStringBuilder().ToString();
@@ -74,21 +68,21 @@ namespace Trivia.UnitTests
                     Console.SetOut(streamWriter);
                     var aGame = new Game();
 
-                    aGame.add("Chet");
-                    aGame.add("Pat");
-                    aGame.add("Sue");
+                    aGame.Add("Chet");
+                    aGame.Add("Pat");
+                    aGame.Add("Sue");
 
                     do
                     {
-                        aGame.roll(rand.Next(5) + 1);
+                        aGame.Roll(rand.Next(5) + 1);
 
                         if (rand.Next(9) == 7)
                         {
-                            _notAWinner = aGame.wrongAnswer();
+                            _notAWinner = aGame.WrongAnswer();
                         }
                         else
                         {
-                            _notAWinner = aGame.wasCorrectlyAnswered();
+                            _notAWinner = aGame.WasCorrectlyAnswered();
                         }
                     } while (_notAWinner);
 
