@@ -15,7 +15,6 @@ namespace Trivia
 
         private int _currentPlayerIndex;
         private Player _currentPlayer;
-        private bool _isGettingOutOfPenaltyBox;
 
         public Game()
         {
@@ -62,7 +61,7 @@ namespace Trivia
             {
                 if (roll % 2 != 0)
                 {
-                    _isGettingOutOfPenaltyBox = true;
+                    _currentPlayer.IsGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(currentPlayer + " is getting out of the penalty box");
                     currentPlayer.Place += roll;
@@ -77,7 +76,7 @@ namespace Trivia
                 else
                 {
                     Console.WriteLine(currentPlayer + " is not getting out of the penalty box");
-                    _isGettingOutOfPenaltyBox = false;
+                    _currentPlayer.IsGettingOutOfPenaltyBox = false;
                 }
             }
             else
@@ -119,15 +118,15 @@ namespace Trivia
 
         private string CurrentCategory()
         {
-            if (_players[_currentPlayerIndex].Place == 0) return "Pop";
-            if (_players[_currentPlayerIndex].Place == 4) return "Pop";
-            if (_players[_currentPlayerIndex].Place == 8) return "Pop";
-            if (_players[_currentPlayerIndex].Place == 1) return "Science";
-            if (_players[_currentPlayerIndex].Place == 5) return "Science";
-            if (_players[_currentPlayerIndex].Place == 9) return "Science";
-            if (_players[_currentPlayerIndex].Place == 2) return "Sports";
-            if (_players[_currentPlayerIndex].Place == 6) return "Sports";
-            if (_players[_currentPlayerIndex].Place == 10) return "Sports";
+            if (_currentPlayer.Place == 0) return "Pop";
+            if (_currentPlayer.Place == 4) return "Pop";
+            if (_currentPlayer.Place == 8) return "Pop";
+            if (_currentPlayer.Place == 1) return "Science";
+            if (_currentPlayer.Place == 5) return "Science";
+            if (_currentPlayer.Place == 9) return "Science";
+            if (_currentPlayer.Place == 2) return "Sports";
+            if (_currentPlayer.Place == 6) return "Sports";
+            if (_currentPlayer.Place == 10) return "Sports";
             return "Rock";
         }
 
@@ -136,7 +135,7 @@ namespace Trivia
 
             if (_currentPlayer.IsInPenaltyBox)
             {
-                if (_isGettingOutOfPenaltyBox)
+                if (_currentPlayer.IsGettingOutOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
                     _players[_currentPlayerIndex].Purse++;
