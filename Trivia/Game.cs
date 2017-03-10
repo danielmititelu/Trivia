@@ -8,8 +8,6 @@ namespace Trivia
     {
         private readonly List<Player> _players = new List<Player>();
 
-        private readonly int[] _places = new int[6];
-
         private readonly bool[] _inPenaltyBox = new bool[6];
 
         public readonly LinkedList<string> PopQuestions = new LinkedList<string>();
@@ -44,7 +42,6 @@ namespace Trivia
         public bool Add(string playerName)
         {
             _players.Add(new Player { Name = playerName });
-            _places[HowManyPlayers()] = 0;
             _inPenaltyBox[HowManyPlayers()] = false;
 
             Console.WriteLine(playerName + " was added");
@@ -59,7 +56,8 @@ namespace Trivia
 
         public void Roll(int roll)
         {
-            Console.WriteLine(_players[_currentPlayer] + " is the current player");
+            var currentPlayer = _players[_currentPlayer];
+            Console.WriteLine(currentPlayer + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
 
             if (_inPenaltyBox[_currentPlayer])
@@ -68,35 +66,33 @@ namespace Trivia
                 {
                     _isGettingOutOfPenaltyBox = true;
 
-                    Console.WriteLine(_players[_currentPlayer] + " is getting out of the penalty box");
-                    _places[_currentPlayer] = _places[_currentPlayer] + roll;
-                    if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
+                    Console.WriteLine(currentPlayer + " is getting out of the penalty box");
+                    currentPlayer.Place += roll;
+                    if (currentPlayer.Place > 11) currentPlayer.Place -= 12;
 
-                    Console.WriteLine(_players[_currentPlayer]
+                    Console.WriteLine(currentPlayer
                             + "'s new location is "
-                            + _places[_currentPlayer]);
+                            + currentPlayer.Place);
                     Console.WriteLine("The category is " + CurrentCategory());
                     AskQuestion();
                 }
                 else
                 {
-                    Console.WriteLine(_players[_currentPlayer] + " is not getting out of the penalty box");
+                    Console.WriteLine(currentPlayer + " is not getting out of the penalty box");
                     _isGettingOutOfPenaltyBox = false;
                 }
-
             }
             else
             {
-                _places[_currentPlayer] = _places[_currentPlayer] + roll;
-                if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
+                currentPlayer.Place += roll;
+                if (currentPlayer.Place > 11) currentPlayer.Place -= 12;
 
-                Console.WriteLine(_players[_currentPlayer]
+                Console.WriteLine(currentPlayer
                         + "'s new location is "
-                        + _places[_currentPlayer]);
+                        + currentPlayer.Place);
                 Console.WriteLine("The category is " + CurrentCategory());
                 AskQuestion();
             }
-
         }
 
         private void AskQuestion()
@@ -125,15 +121,15 @@ namespace Trivia
 
         private string CurrentCategory()
         {
-            if (_places[_currentPlayer] == 0) return "Pop";
-            if (_places[_currentPlayer] == 4) return "Pop";
-            if (_places[_currentPlayer] == 8) return "Pop";
-            if (_places[_currentPlayer] == 1) return "Science";
-            if (_places[_currentPlayer] == 5) return "Science";
-            if (_places[_currentPlayer] == 9) return "Science";
-            if (_places[_currentPlayer] == 2) return "Sports";
-            if (_places[_currentPlayer] == 6) return "Sports";
-            if (_places[_currentPlayer] == 10) return "Sports";
+            if (_players[_currentPlayer].Place == 0) return "Pop";
+            if (_players[_currentPlayer].Place == 4) return "Pop";
+            if (_players[_currentPlayer].Place == 8) return "Pop";
+            if (_players[_currentPlayer].Place == 1) return "Science";
+            if (_players[_currentPlayer].Place == 5) return "Science";
+            if (_players[_currentPlayer].Place == 9) return "Science";
+            if (_players[_currentPlayer].Place == 2) return "Sports";
+            if (_players[_currentPlayer].Place == 6) return "Sports";
+            if (_players[_currentPlayer].Place == 10) return "Sports";
             return "Rock";
         }
 

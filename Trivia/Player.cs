@@ -4,6 +4,7 @@
     {
         public string Name { get; set; }
         public int Purse { get; set; }
+        public int Place { get; set; }
 
         public override string ToString()
         {
