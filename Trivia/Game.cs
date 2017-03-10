@@ -8,14 +8,13 @@ namespace Trivia
     {
         private readonly List<Player> _players = new List<Player>();
 
-        private readonly bool[] _inPenaltyBox = new bool[6];
-
         public readonly LinkedList<string> PopQuestions = new LinkedList<string>();
         public readonly LinkedList<string> ScienceQuestions = new LinkedList<string>();
         public readonly LinkedList<string> SportsQuestions = new LinkedList<string>();
         public readonly LinkedList<string> RockQuestions = new LinkedList<string>();
 
-        private int _currentPlayer = 0;
+        private int _currentPlayerIndex;
+        private Player _currentPlayer;
         private bool _isGettingOutOfPenaltyBox;
 
         public Game()
@@ -42,8 +41,7 @@ namespace Trivia
         public bool Add(string playerName)
         {
             _players.Add(new Player { Name = playerName });
-            _inPenaltyBox[HowManyPlayers()] = false;
-
+            _currentPlayer = _players[0];
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + _players.Count);
             return true;
@@ -56,11 +54,11 @@ namespace Trivia
 
         public void Roll(int roll)
         {
-            var currentPlayer = _players[_currentPlayer];
+            var currentPlayer = _players[_currentPlayerIndex];
             Console.WriteLine(currentPlayer + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
 
-            if (_inPenaltyBox[_currentPlayer])
+            if (currentPlayer.IsInPenaltyBox)
             {
                 if (roll % 2 != 0)
                 {
@@ -121,41 +119,43 @@ namespace Trivia
 
         private string CurrentCategory()
         {
-            if (_players[_currentPlayer].Place == 0) return "Pop";
-            if (_players[_currentPlayer].Place == 4) return "Pop";
-            if (_players[_currentPlayer].Place == 8) return "Pop";
-            if (_players[_currentPlayer].Place == 1) return "Science";
-            if (_players[_currentPlayer].Place == 5) return "Science";
-            if (_players[_currentPlayer].Place == 9) return "Science";
-            if (_players[_currentPlayer].Place == 2) return "Sports";
-            if (_players[_currentPlayer].Place == 6) return "Sports";
-            if (_players[_currentPlayer].Place == 10) return "Sports";
+            if (_players[_currentPlayerIndex].Place == 0) return "Pop";
+            if (_players[_currentPlayerIndex].Place == 4) return "Pop";
+            if (_players[_currentPlayerIndex].Place == 8) return "Pop";
+            if (_players[_currentPlayerIndex].Place == 1) return "Science";
+            if (_players[_currentPlayerIndex].Place == 5) return "Science";
+            if (_players[_currentPlayerIndex].Place == 9) return "Science";
+            if (_players[_currentPlayerIndex].Place == 2) return "Sports";
+            if (_players[_currentPlayerIndex].Place == 6) return "Sports";
+            if (_players[_currentPlayerIndex].Place == 10) return "Sports";
             return "Rock";
         }
 
         public bool WasCorrectlyAnswered()
         {
-            if (_inPenaltyBox[_currentPlayer])
+
+            if (_currentPlayer.IsInPenaltyBox)
             {
                 if (_isGettingOutOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
-                    _players[_currentPlayer].Purse++;
-                    Console.WriteLine(_players[_currentPlayer]
+                    _players[_currentPlayerIndex].Purse++;
+                    Console.WriteLine(_players[_currentPlayerIndex]
                             + " now has "
-                            + _players[_currentPlayer].Purse
+                            + _players[_currentPlayerIndex].Purse
                             + " Gold Coins.");
 
                     var winner = DidPlayerWin();
-                    _currentPlayer++;
-                    if (_currentPlayer == _players.Count) _currentPlayer = 0;
-
+                    _currentPlayerIndex++;
+                    if (_currentPlayerIndex == _players.Count) _currentPlayerIndex = 0;
+                    _currentPlayer = _players[_currentPlayerIndex];
                     return winner;
                 }
                 else
                 {
-                    _currentPlayer++;
-                    if (_currentPlayer == _players.Count) _currentPlayer = 0;
+                    _currentPlayerIndex++;
+                    if (_currentPlayerIndex == _players.Count) _currentPlayerIndex = 0;
+                    _currentPlayer = _players[_currentPlayerIndex];
                     return true;
                 }
             }
@@ -163,16 +163,16 @@ namespace Trivia
             {
 
                 Console.WriteLine("Answer was corrent!!!!");
-                _players[_currentPlayer].Purse++;
-                Console.WriteLine(_players[_currentPlayer]
+                _players[_currentPlayerIndex].Purse++;
+                Console.WriteLine(_players[_currentPlayerIndex]
                         + " now has "
-                        + _players[_currentPlayer].Purse
+                        + _players[_currentPlayerIndex].Purse
                         + " Gold Coins.");
 
                 var winner = DidPlayerWin();
-                _currentPlayer++;
-                if (_currentPlayer == _players.Count) _currentPlayer = 0;
-
+                _currentPlayerIndex++;
+                if (_currentPlayerIndex == _players.Count) _currentPlayerIndex = 0;
+                _currentPlayer = _players[_currentPlayerIndex];
                 return winner;
             }
         }
@@ -180,17 +180,18 @@ namespace Trivia
         public bool WrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(_players[_currentPlayer] + " was sent to the penalty box");
-            _inPenaltyBox[_currentPlayer] = true;
+            Console.WriteLine(_players[_currentPlayerIndex] + " was sent to the penalty box");
+            _currentPlayer.IsInPenaltyBox = true;
 
-            _currentPlayer++;
-            if (_currentPlayer == _players.Count) _currentPlayer = 0;
+            _currentPlayerIndex++;
+            if (_currentPlayerIndex == _players.Count) _currentPlayerIndex = 0;
+            _currentPlayer = _players[_currentPlayerIndex];
             return true;
         }
 
         private bool DidPlayerWin()
         {
-            return _players[_currentPlayer].Purse != 6;
+            return _players[_currentPlayerIndex].Purse != 6;
         }
     }
 }
