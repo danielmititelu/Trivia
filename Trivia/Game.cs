@@ -9,7 +9,6 @@ namespace Trivia
         private readonly List<Player> _players = new List<Player>();
 
         private readonly int[] _places = new int[6];
-        private readonly int[] _purses = new int[6];
 
         private readonly bool[] _inPenaltyBox = new bool[6];
 
@@ -46,7 +45,6 @@ namespace Trivia
         {
             _players.Add(new Player { Name = playerName });
             _places[HowManyPlayers()] = 0;
-            _purses[HowManyPlayers()] = 0;
             _inPenaltyBox[HowManyPlayers()] = false;
 
             Console.WriteLine(playerName + " was added");
@@ -146,10 +144,10 @@ namespace Trivia
                 if (_isGettingOutOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
-                    _purses[_currentPlayer]++;
+                    _players[_currentPlayer].Purse++;
                     Console.WriteLine(_players[_currentPlayer]
                             + " now has "
-                            + _purses[_currentPlayer]
+                            + _players[_currentPlayer].Purse
                             + " Gold Coins.");
 
                     var winner = DidPlayerWin();
@@ -169,10 +167,10 @@ namespace Trivia
             {
 
                 Console.WriteLine("Answer was corrent!!!!");
-                _purses[_currentPlayer]++;
+                _players[_currentPlayer].Purse++;
                 Console.WriteLine(_players[_currentPlayer]
                         + " now has "
-                        + _purses[_currentPlayer]
+                        + _players[_currentPlayer].Purse
                         + " Gold Coins.");
 
                 var winner = DidPlayerWin();
@@ -196,7 +194,7 @@ namespace Trivia
 
         private bool DidPlayerWin()
         {
-            return _purses[_currentPlayer] != 6;
+            return _players[_currentPlayer].Purse != 6;
         }
     }
 }
