@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using UglyTrivia;
-
 namespace Trivia
 {
     public class GameRunner
@@ -24,8 +22,7 @@ namespace Trivia
 
             do
             {
-
-                aGame.Roll(rand.Next(5) + 1);
+                aGame.Roll(rand.Next(5) + 1); 
 
                 if (rand.Next(9) == 7)
                 {
@@ -35,15 +32,9 @@ namespace Trivia
                 {
                     notAWinner = aGame.WasCorrectlyAnswered();
                 }
-
-
-
             } while (notAWinner);
             Console.Read();
         }
-
-
     }
-
 }
 
