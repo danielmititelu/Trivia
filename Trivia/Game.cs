@@ -42,7 +42,7 @@ namespace UglyTrivia
 
         public bool isPlayable()
         {
-            return (howManyPlayers() >= 2);
+            return (howManyPlayers() > 3);
         }
 
         public bool add(String playerName)
