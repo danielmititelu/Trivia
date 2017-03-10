@@ -16,42 +16,45 @@ namespace Trivia.UnitTests
         private static bool _notAWinner;
 
         [Test]
-        public void FirstTest()
+        public void CompareWithGoldenMaster()
         {
-            var streamWriter = new StringWriter();
-            Console.SetOut(streamWriter);
-            var aGame = new Game();
-
-            aGame.add("Chet");
-            aGame.add("Pat");
-            aGame.add("Sue");
-
-            var rand = new Random(2);
-
-            do
+            for (var seed = 0; seed <= 100; seed++)
             {
-                aGame.roll(rand.Next(5) + 1);
+                var streamWriter = new StringWriter();
+                Console.SetOut(streamWriter);
+                var aGame = new Game();
 
-                if (rand.Next(9) == 7)
+                aGame.add("Chet");
+                aGame.add("Pat");
+                aGame.add("Sue");
+
+                var rand = new Random(seed);
+
+                do
                 {
-                    _notAWinner = aGame.wrongAnswer();
-                }
-                else
-                {
-                    _notAWinner = aGame.wasCorrectlyAnswered();
-                }
-            } while (_notAWinner);
+                    aGame.roll(rand.Next(5) + 1);
+
+                    if (rand.Next(9) == 7)
+                    {
+                        _notAWinner = aGame.wrongAnswer();
+                    }
+                    else
+                    {
+                        _notAWinner = aGame.wasCorrectlyAnswered();
+                    }
+                } while (_notAWinner);
 
 
-            streamWriter.Flush();
-            var actual = streamWriter.GetStringBuilder().ToString();
+                streamWriter.Flush();
+                var actual = streamWriter.GetStringBuilder().ToString();
 
-            var assembly = Assembly.GetExecutingAssembly();
-            var codebase = new Uri(assembly.CodeBase);
-            var path = codebase.LocalPath;
-            var expected = File.ReadAllText(Path.Combine(Directory.GetParent(path).FullName, "ExpectedOutput.txt"));
+                var assembly = Assembly.GetExecutingAssembly();
+                var codebase = new Uri(assembly.CodeBase);
+                var path = codebase.LocalPath;
+                var expected = File.ReadAllText(Path.Combine(Directory.GetParent(path).FullName, "..", "..", "GoldenMasters", $"ExpectedOutput{seed}.txt"));
 
-            Assert.AreEqual(expected, actual);
+                Assert.AreEqual(expected, actual);
+            }
         }
 
         [Test]
