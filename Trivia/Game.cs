@@ -7,11 +7,7 @@ namespace Trivia
     public class Game
     {
         private readonly List<Player> _players = new List<Player>();
-
-        public readonly LinkedList<Question> PopQuestions = new LinkedList<Question>();
-        public readonly LinkedList<Question> ScienceQuestions = new LinkedList<Question>();
-        public readonly LinkedList<Question> SportsQuestions = new LinkedList<Question>();
-        public readonly LinkedList<Question> RockQuestions = new LinkedList<Question>();
+        private Board _board = new Board();
 
         private int _currentPlayerIndex;
         private Player _currentPlayer;
@@ -20,10 +16,10 @@ namespace Trivia
         {
             for (var i = 0; i < 50; i++)
             {
-                PopQuestions.AddLast(new Question { Text = "Pop Question " + i });
-                ScienceQuestions.AddLast(new Question { Text = "Science Question " + i });
-                SportsQuestions.AddLast(new Question { Text = "Sports Question " + i });
-                RockQuestions.AddLast(new Question { Text = "Rock Question " + i });
+                _board.AddQuestion(new Question { Text = "Pop Question " + i, Category = Category.Pop });
+                _board.AddQuestion(new Question { Text = "Science Question " + i, Category = Category.Science });
+                _board.AddQuestion(new Question { Text = "Sports Question " + i, Category = Category.Sports });
+                _board.AddQuestion(new Question { Text = "Rock Question " + i, Category = Category.Rock });
             }
         }
 
@@ -89,40 +85,13 @@ namespace Trivia
 
         private void AskQuestion()
         {
-            if (CurrentCategory() == "Pop")
-            {
-                Console.WriteLine(PopQuestions.First());
-                PopQuestions.RemoveFirst();
-            }
-            if (CurrentCategory() == "Science")
-            {
-                Console.WriteLine(ScienceQuestions.First());
-                ScienceQuestions.RemoveFirst();
-            }
-            if (CurrentCategory() == "Sports")
-            {
-                Console.WriteLine(SportsQuestions.First());
-                SportsQuestions.RemoveFirst();
-            }
-            if (CurrentCategory() == "Rock")
-            {
-                Console.WriteLine(RockQuestions.First());
-                RockQuestions.RemoveFirst();
-            }
+            var question =_board.GetQuestion(_currentPlayer.Place);
+            Console.WriteLine(question);
         }
 
-        private string CurrentCategory()
+        private Category CurrentCategory()
         {
-            if (_currentPlayer.Place == 0) return "Pop";
-            if (_currentPlayer.Place == 4) return "Pop";
-            if (_currentPlayer.Place == 8) return "Pop";
-            if (_currentPlayer.Place == 1) return "Science";
-            if (_currentPlayer.Place == 5) return "Science";
-            if (_currentPlayer.Place == 9) return "Science";
-            if (_currentPlayer.Place == 2) return "Sports";
-            if (_currentPlayer.Place == 6) return "Sports";
-            if (_currentPlayer.Place == 10) return "Sports";
-            return "Rock";
+            return _board.GetCategory(_currentPlayer.Place);
         }
 
         public bool WasCorrectlyAnswered()
