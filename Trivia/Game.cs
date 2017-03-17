@@ -21,15 +21,10 @@ namespace Trivia
             for (var i = 0; i < 50; i++)
             {
                 PopQuestions.AddLast("Pop Question " + i);
-                ScienceQuestions.AddLast(("Science Question " + i));
-                SportsQuestions.AddLast(("Sports Question " + i));
-                RockQuestions.AddLast(CreateRockQuestion(i));
+                ScienceQuestions.AddLast("Science Question " + i);
+                SportsQuestions.AddLast("Sports Question " + i);
+                RockQuestions.AddLast("Rock Question " + i);
             }
-        }
-
-        public string CreateRockQuestion(int index)
-        {
-            return "Rock Question " + index;
         }
 
         public bool IsPlayable()
