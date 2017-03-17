@@ -8,10 +8,10 @@ namespace Trivia
     {
         private readonly List<Player> _players = new List<Player>();
 
-        public readonly LinkedList<string> PopQuestions = new LinkedList<string>();
-        public readonly LinkedList<string> ScienceQuestions = new LinkedList<string>();
-        public readonly LinkedList<string> SportsQuestions = new LinkedList<string>();
-        public readonly LinkedList<string> RockQuestions = new LinkedList<string>();
+        public readonly LinkedList<Question> PopQuestions = new LinkedList<Question>();
+        public readonly LinkedList<Question> ScienceQuestions = new LinkedList<Question>();
+        public readonly LinkedList<Question> SportsQuestions = new LinkedList<Question>();
+        public readonly LinkedList<Question> RockQuestions = new LinkedList<Question>();
 
         private int _currentPlayerIndex;
         private Player _currentPlayer;
@@ -20,10 +20,10 @@ namespace Trivia
         {
             for (var i = 0; i < 50; i++)
             {
-                PopQuestions.AddLast("Pop Question " + i);
-                ScienceQuestions.AddLast("Science Question " + i);
-                SportsQuestions.AddLast("Sports Question " + i);
-                RockQuestions.AddLast("Rock Question " + i);
+                PopQuestions.AddLast(new Question { Text = "Pop Question " + i });
+                ScienceQuestions.AddLast(new Question { Text = "Science Question " + i });
+                SportsQuestions.AddLast(new Question { Text = "Sports Question " + i });
+                RockQuestions.AddLast(new Question { Text = "Rock Question " + i });
             }
         }
 
