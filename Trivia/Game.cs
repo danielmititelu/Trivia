@@ -7,8 +7,9 @@ namespace Trivia
     public class Game
     {
         private readonly List<Player> _players = new List<Player>();
-        private Board _board = new Board();
+        private readonly Board _board = new Board();
 
+        const int MaxPlaces = 12;
         private int _currentPlayerIndex;
         private Player _currentPlayer;
 
@@ -50,42 +51,32 @@ namespace Trivia
 
             if (currentPlayer.IsInPenaltyBox)
             {
-                if (roll % 2 != 0)
-                {
-                    _currentPlayer.IsGettingOutOfPenaltyBox = true;
+                _currentPlayer.IsGettingOutOfPenaltyBox = roll % 2 == 1;
 
-                    Console.WriteLine(currentPlayer + " is getting out of the penalty box");
-                    currentPlayer.Place += roll;
-                    if (currentPlayer.Place > 11) currentPlayer.Place -= 12;
-
-                    Console.WriteLine(currentPlayer
-                            + "'s new location is "
-                            + currentPlayer.Place);
-                    Console.WriteLine("The category is " + CurrentCategory());
-                    AskQuestion();
-                }
-                else
-                {
-                    Console.WriteLine(currentPlayer + " is not getting out of the penalty box");
-                    _currentPlayer.IsGettingOutOfPenaltyBox = false;
-                }
+                Console.WriteLine(_currentPlayer.IsGettingOutOfPenaltyBox?
+                    currentPlayer + " is getting out of the penalty box" :
+                    currentPlayer + " is not getting out of the penalty box");
             }
-            else
-            {
-                currentPlayer.Place += roll;
-                if (currentPlayer.Place > 11) currentPlayer.Place -= 12;
 
-                Console.WriteLine(currentPlayer
-                        + "'s new location is "
-                        + currentPlayer.Place);
-                Console.WriteLine("The category is " + CurrentCategory());
-                AskQuestion();
-            }
+            if (currentPlayer.IsInPenaltyBox && _currentPlayer.IsGettingOutOfPenaltyBox || !currentPlayer.IsInPenaltyBox)
+                MovePlayer(roll, currentPlayer);
+        }
+
+        private void MovePlayer(int roll, Player currentPlayer)
+        {
+            currentPlayer.Place += roll;
+            currentPlayer.Place %= MaxPlaces;
+
+            Console.WriteLine(currentPlayer
+                              + "'s new location is "
+                              + currentPlayer.Place);
+            Console.WriteLine("The category is " + CurrentCategory());
+            AskQuestion();
         }
 
         private void AskQuestion()
         {
-            var question =_board.GetQuestion(_currentPlayer.Place);
+            var question = _board.GetQuestion(_currentPlayer.Place);
             Console.WriteLine(question);
         }
 
