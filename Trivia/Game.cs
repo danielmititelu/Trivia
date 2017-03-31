@@ -78,22 +78,11 @@ namespace Trivia
 
         public bool WasCorrectlyAnswered()
         {
-            if (_currentPlayer.IsInPenaltyBox)
-            {
-                if (_currentPlayer.IsGettingOutOfPenaltyBox)
-                {
-                    return DoWhenPlayerAnswersCorrectly();
-                }
-                else
-                {
-                    PassTurnToNextPlayer();
-                    return true;
-                }
-            }
-            else
-            {
+            if (_currentPlayer.IsInPenaltyBox && _currentPlayer.IsGettingOutOfPenaltyBox || !_currentPlayer.IsInPenaltyBox)
                 return DoWhenPlayerAnswersCorrectly();
-            }
+
+            PassTurnToNextPlayer();
+            return true;
         }
 
         private bool DoWhenPlayerAnswersCorrectly()
