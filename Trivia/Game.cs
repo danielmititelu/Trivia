@@ -29,13 +29,12 @@ namespace Trivia
             return _players.Count > 3;
         }
 
-        public bool Add(string playerName)
+        public void Add(string playerName)
         {
             _players.Add(new Player { Name = playerName });
             _currentPlayer = _players[0];
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + _players.Count);
-            return true;
         }
 
         public void Roll(int roll)
