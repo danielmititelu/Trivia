@@ -76,7 +76,7 @@ namespace Trivia
             return _board.GetCategory(_currentPlayer.Place);
         }
 
-        public bool WasCorrectlyAnswered()
+        public bool GiveCorrectAnswer()
         {
             if (_currentPlayer.IsInPenaltyBox && _currentPlayer.IsGettingOutOfPenaltyBox || !_currentPlayer.IsInPenaltyBox)
                 return DoWhenPlayerAnswersCorrectly();
@@ -104,7 +104,7 @@ namespace Trivia
             _currentPlayer = _players[_currentPlayerIndex];
         }
 
-        public bool WrongAnswer()
+        public bool GiveWrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
             Console.WriteLine($"{_currentPlayer} was sent to the penalty box");
