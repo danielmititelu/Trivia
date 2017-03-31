@@ -79,14 +79,13 @@ namespace Trivia
 
         public bool WasCorrectlyAnswered()
         {
-
             if (_currentPlayer.IsInPenaltyBox)
             {
                 if (_currentPlayer.IsGettingOutOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
                     _players[_currentPlayerIndex].Purse++;
-                    Console.WriteLine($"{_players[_currentPlayerIndex]} now has {_players[_currentPlayerIndex].Purse} Gold Coins.");
+                    Console.WriteLine($"{_currentPlayer} now has {_currentPlayer.Purse} Gold Coins.");
 
                     var winner = DidPlayerWin();
                     _currentPlayerIndex++;
@@ -107,7 +106,7 @@ namespace Trivia
 
                 Console.WriteLine("Answer was corrent!!!!");
                 _players[_currentPlayerIndex].Purse++;
-                Console.WriteLine($"{_players[_currentPlayerIndex]} now has {_players[_currentPlayerIndex].Purse} Gold Coins.");
+                Console.WriteLine($"{_currentPlayer} now has {_currentPlayer.Purse} Gold Coins.");
 
                 var winner = DidPlayerWin();
                 _currentPlayerIndex++;
@@ -120,7 +119,7 @@ namespace Trivia
         public bool WrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(_players[_currentPlayerIndex] + " was sent to the penalty box");
+            Console.WriteLine($"{_currentPlayer} was sent to the penalty box");
             _currentPlayer.IsInPenaltyBox = true;
 
             _currentPlayerIndex++;
