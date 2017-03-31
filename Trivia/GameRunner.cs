@@ -18,7 +18,8 @@ namespace Trivia
             aGame.Add("Pat");
             aGame.Add("Sue");
 
-            Random rand = new Random();
+            var rand = new Random();
+            if (args.Length == 1) rand = new Random(int.Parse(args[0]));
 
             do
             {
@@ -33,7 +34,6 @@ namespace Trivia
                     isNotGameOver = aGame.GiveCorrectAnswer();
                 }
             } while (isNotGameOver);
-            Console.Read();
         }
     }
 }

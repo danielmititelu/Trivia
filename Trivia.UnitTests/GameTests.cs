@@ -7,8 +7,6 @@ namespace Trivia.UnitTests
 {
     public class GameTests
     {
-        private static bool _notAWinner;
-
         [Test]
         public void CompareWithGoldenMaster()
         {
@@ -16,31 +14,9 @@ namespace Trivia.UnitTests
             {
                 var streamWriter = new StringWriter();
                 Console.SetOut(streamWriter);
-                var aGame = new Game();
-
-                aGame.Add("Chet");
-                aGame.Add("Pat");
-                aGame.Add("Sue");
-
-                var rand = new Random(seed);
-
-                do
-                {
-                    aGame.Roll(rand.Next(5) + 1);
-
-                    if (rand.Next(9) == 7)
-                    {
-                        _notAWinner = aGame.GiveWrongAnswer();
-                    }
-                    else
-                    {
-                        _notAWinner = aGame.GiveCorrectAnswer();
-                    }
-                } while (_notAWinner);
-
+                GameRunner.Main(new [] {seed + ""});
                 streamWriter.Flush();
                 var actual = streamWriter.GetStringBuilder().ToString();
-
                 var assembly = Assembly.GetExecutingAssembly();
                 var codebase = new Uri(assembly.CodeBase);
                 var path = codebase.LocalPath;
@@ -56,8 +32,6 @@ namespace Trivia.UnitTests
         {
             for (var seed = 0; seed <= 100; seed++)
             {
-                var rand = new Random(seed);
-
                 var assembly = Assembly.GetExecutingAssembly();
                 var codebase = new Uri(assembly.CodeBase);
                 var path = codebase.LocalPath;
@@ -65,26 +39,7 @@ namespace Trivia.UnitTests
                 using (var streamWriter = new StreamWriter(savePath))
                 {
                     Console.SetOut(streamWriter);
-                    var aGame = new Game();
-
-                    aGame.Add("Chet");
-                    aGame.Add("Pat");
-                    aGame.Add("Sue");
-
-                    do
-                    {
-                        aGame.Roll(rand.Next(5) + 1);
-
-                        if (rand.Next(9) == 7)
-                        {
-                            _notAWinner = aGame.GiveWrongAnswer();
-                        }
-                        else
-                        {
-                            _notAWinner = aGame.GiveCorrectAnswer();
-                        }
-                    } while (_notAWinner);
-
+                    GameRunner.Main(new[] { seed + "" });
                     streamWriter.Flush();
                 }
             }
