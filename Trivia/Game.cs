@@ -39,29 +39,28 @@ namespace Trivia
 
         public void Roll(int roll)
         {
-            var currentPlayer = _players[_currentPlayerIndex];
-            Console.WriteLine($"{currentPlayer} is the current player");
+            Console.WriteLine($"{_currentPlayer} is the current player");
             Console.WriteLine($"They have rolled a {roll}");
 
-            if (currentPlayer.IsInPenaltyBox)
+            if (_currentPlayer.IsInPenaltyBox)
             {
                 _currentPlayer.IsGettingOutOfPenaltyBox = roll % 2 == 1;
 
                 Console.WriteLine(_currentPlayer.IsGettingOutOfPenaltyBox ?
-                    $"{currentPlayer} is getting out of the penalty box" :
-                    $"{currentPlayer} is not getting out of the penalty box");
+                    $"{_currentPlayer} is getting out of the penalty box" :
+                    $"{_currentPlayer} is not getting out of the penalty box");
             }
 
-            if (currentPlayer.IsInPenaltyBox && _currentPlayer.IsGettingOutOfPenaltyBox || !currentPlayer.IsInPenaltyBox)
-                MovePlayer(roll, currentPlayer);
+            if (_currentPlayer.IsInPenaltyBox && _currentPlayer.IsGettingOutOfPenaltyBox || !_currentPlayer.IsInPenaltyBox)
+                MovePlayer(roll);
         }
 
-        private void MovePlayer(int roll, Player currentPlayer)
+        private void MovePlayer(int roll)
         {
-            currentPlayer.Place += roll;
-            currentPlayer.Place %= MaxPlaces;
+            _currentPlayer.Place += roll;
+            _currentPlayer.Place %= MaxPlaces;
 
-            Console.WriteLine($"{currentPlayer}'s new location is {currentPlayer.Place}");
+            Console.WriteLine($"{_currentPlayer}'s new location is {_currentPlayer.Place}");
             Console.WriteLine($"The category is {CurrentCategory()}");
             AskQuestion();
         }
@@ -83,13 +82,7 @@ namespace Trivia
             {
                 if (_currentPlayer.IsGettingOutOfPenaltyBox)
                 {
-                    Console.WriteLine("Answer was correct!!!!");
-                    _players[_currentPlayerIndex].Purse++;
-                    Console.WriteLine($"{_currentPlayer} now has {_currentPlayer.Purse} Gold Coins.");
-
-                    var winner = DidPlayerWin();
-                    PassTurnToNextPlayer();
-                    return winner;
+                    return DoWhenPlayerAnswersCorrectly();
                 }
                 else
                 {
@@ -99,15 +92,19 @@ namespace Trivia
             }
             else
             {
-
-                Console.WriteLine("Answer was corrent!!!!");
-                _players[_currentPlayerIndex].Purse++;
-                Console.WriteLine($"{_currentPlayer} now has {_currentPlayer.Purse} Gold Coins.");
-
-                var winner = DidPlayerWin();
-                PassTurnToNextPlayer();
-                return winner;
+                return DoWhenPlayerAnswersCorrectly();
             }
+        }
+
+        private bool DoWhenPlayerAnswersCorrectly()
+        {
+            Console.WriteLine("Answer was correct!!!!");
+            _players[_currentPlayerIndex].Purse++;
+            Console.WriteLine($"{_currentPlayer} now has {_currentPlayer.Purse} Gold Coins.");
+
+            var winner = DidPlayerWin();
+            PassTurnToNextPlayer();
+            return winner;
         }
 
         private void PassTurnToNextPlayer()
