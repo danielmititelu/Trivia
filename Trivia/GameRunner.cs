@@ -8,7 +8,7 @@ namespace Trivia
     public class GameRunner
     {
 
-        private static bool isNotGameOver;
+        private static bool isGameOver;
 
         public static void Main(String[] args)
         {
@@ -23,17 +23,10 @@ namespace Trivia
 
             do
             {
-                aGame.Roll(rand.Next(5) + 1); 
+                aGame.Roll(rand.Next(5) + 1);
 
-                if (rand.Next(9) == 7)
-                {
-                    isNotGameOver = aGame.GiveWrongAnswer();
-                }
-                else
-                {
-                    isNotGameOver = aGame.GiveCorrectAnswer();
-                }
-            } while (isNotGameOver);
+                isGameOver = rand.Next(9) == 7 ? aGame.GiveWrongAnswer() : aGame.GiveCorrectAnswer();
+            } while (!isGameOver);
         }
     }
 }
