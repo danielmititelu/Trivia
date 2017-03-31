@@ -88,16 +88,12 @@ namespace Trivia
                     Console.WriteLine($"{_currentPlayer} now has {_currentPlayer.Purse} Gold Coins.");
 
                     var winner = DidPlayerWin();
-                    _currentPlayerIndex++;
-                    if (_currentPlayerIndex == _players.Count) _currentPlayerIndex = 0;
-                    _currentPlayer = _players[_currentPlayerIndex];
+                    PassTurnToNextPlayer();
                     return winner;
                 }
                 else
                 {
-                    _currentPlayerIndex++;
-                    if (_currentPlayerIndex == _players.Count) _currentPlayerIndex = 0;
-                    _currentPlayer = _players[_currentPlayerIndex];
+                    PassTurnToNextPlayer();
                     return true;
                 }
             }
@@ -109,11 +105,16 @@ namespace Trivia
                 Console.WriteLine($"{_currentPlayer} now has {_currentPlayer.Purse} Gold Coins.");
 
                 var winner = DidPlayerWin();
-                _currentPlayerIndex++;
-                if (_currentPlayerIndex == _players.Count) _currentPlayerIndex = 0;
-                _currentPlayer = _players[_currentPlayerIndex];
+                PassTurnToNextPlayer();
                 return winner;
             }
+        }
+
+        private void PassTurnToNextPlayer()
+        {
+            _currentPlayerIndex++;
+            if (_currentPlayerIndex == _players.Count) _currentPlayerIndex = 0;
+            _currentPlayer = _players[_currentPlayerIndex];
         }
 
         public bool WrongAnswer()
@@ -122,9 +123,7 @@ namespace Trivia
             Console.WriteLine($"{_currentPlayer} was sent to the penalty box");
             _currentPlayer.IsInPenaltyBox = true;
 
-            _currentPlayerIndex++;
-            if (_currentPlayerIndex == _players.Count) _currentPlayerIndex = 0;
-            _currentPlayer = _players[_currentPlayerIndex];
+            PassTurnToNextPlayer();
             return true;
         }
 
