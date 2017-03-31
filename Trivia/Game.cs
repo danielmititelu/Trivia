@@ -17,10 +17,10 @@ namespace Trivia
         {
             for (var i = 0; i < 50; i++)
             {
-                _board.AddQuestion(new Question { Text = "Pop Question " + i, Category = Category.Pop });
-                _board.AddQuestion(new Question { Text = "Science Question " + i, Category = Category.Science });
-                _board.AddQuestion(new Question { Text = "Sports Question " + i, Category = Category.Sports });
-                _board.AddQuestion(new Question { Text = "Rock Question " + i, Category = Category.Rock });
+                _board.AddQuestion(new Question { Text = $"Pop Question {i}", Category = Category.Pop });
+                _board.AddQuestion(new Question { Text = $"Science Question {i}", Category = Category.Science });
+                _board.AddQuestion(new Question { Text = $"Sports Question {i}", Category = Category.Sports });
+                _board.AddQuestion(new Question { Text = $"Rock Question {i}", Category = Category.Rock });
             }
         }
 
@@ -33,23 +33,23 @@ namespace Trivia
         {
             _players.Add(new Player { Name = playerName });
             _currentPlayer = _players[0];
-            Console.WriteLine(playerName + " was added");
-            Console.WriteLine("They are player number " + _players.Count);
+            Console.WriteLine($"{playerName} was added");
+            Console.WriteLine($"They are player number {_players.Count}");
         }
 
         public void Roll(int roll)
         {
             var currentPlayer = _players[_currentPlayerIndex];
-            Console.WriteLine(currentPlayer + " is the current player");
-            Console.WriteLine("They have rolled a " + roll);
+            Console.WriteLine($"{currentPlayer} is the current player");
+            Console.WriteLine($"They have rolled a {roll}");
 
             if (currentPlayer.IsInPenaltyBox)
             {
                 _currentPlayer.IsGettingOutOfPenaltyBox = roll % 2 == 1;
 
-                Console.WriteLine(_currentPlayer.IsGettingOutOfPenaltyBox?
-                    currentPlayer + " is getting out of the penalty box" :
-                    currentPlayer + " is not getting out of the penalty box");
+                Console.WriteLine(_currentPlayer.IsGettingOutOfPenaltyBox ?
+                    $"{currentPlayer} is getting out of the penalty box" :
+                    $"{currentPlayer} is not getting out of the penalty box");
             }
 
             if (currentPlayer.IsInPenaltyBox && _currentPlayer.IsGettingOutOfPenaltyBox || !currentPlayer.IsInPenaltyBox)
@@ -61,10 +61,8 @@ namespace Trivia
             currentPlayer.Place += roll;
             currentPlayer.Place %= MaxPlaces;
 
-            Console.WriteLine(currentPlayer
-                              + "'s new location is "
-                              + currentPlayer.Place);
-            Console.WriteLine("The category is " + CurrentCategory());
+            Console.WriteLine($"{currentPlayer}'s new location is {currentPlayer.Place}");
+            Console.WriteLine($"The category is {CurrentCategory()}");
             AskQuestion();
         }
 
@@ -88,10 +86,7 @@ namespace Trivia
                 {
                     Console.WriteLine("Answer was correct!!!!");
                     _players[_currentPlayerIndex].Purse++;
-                    Console.WriteLine(_players[_currentPlayerIndex]
-                            + " now has "
-                            + _players[_currentPlayerIndex].Purse
-                            + " Gold Coins.");
+                    Console.WriteLine($"{_players[_currentPlayerIndex]} now has {_players[_currentPlayerIndex].Purse} Gold Coins.");
 
                     var winner = DidPlayerWin();
                     _currentPlayerIndex++;
@@ -112,10 +107,7 @@ namespace Trivia
 
                 Console.WriteLine("Answer was corrent!!!!");
                 _players[_currentPlayerIndex].Purse++;
-                Console.WriteLine(_players[_currentPlayerIndex]
-                        + " now has "
-                        + _players[_currentPlayerIndex].Purse
-                        + " Gold Coins.");
+                Console.WriteLine($"{_players[_currentPlayerIndex]} now has {_players[_currentPlayerIndex].Purse} Gold Coins.");
 
                 var winner = DidPlayerWin();
                 _currentPlayerIndex++;
