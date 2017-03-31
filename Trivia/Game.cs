@@ -81,8 +81,9 @@ namespace Trivia
             if (_currentPlayer.IsInPenaltyBox && _currentPlayer.IsGettingOutOfPenaltyBox || !_currentPlayer.IsInPenaltyBox)
                 return DoWhenPlayerAnswersCorrectly();
 
+            var winner = IsNotGameOver();
             PassTurnToNextPlayer();
-            return true;
+            return winner;
         }
 
         private bool DoWhenPlayerAnswersCorrectly()
@@ -91,7 +92,7 @@ namespace Trivia
             _players[_currentPlayerIndex].Purse++;
             Console.WriteLine($"{_currentPlayer} now has {_currentPlayer.Purse} Gold Coins.");
 
-            var winner = DidPlayerWin();
+            var winner = IsNotGameOver();
             PassTurnToNextPlayer();
             return winner;
         }
@@ -109,11 +110,12 @@ namespace Trivia
             Console.WriteLine($"{_currentPlayer} was sent to the penalty box");
             _currentPlayer.IsInPenaltyBox = true;
 
+            var winner = IsNotGameOver();
             PassTurnToNextPlayer();
-            return true;
+            return winner;
         }
 
-        private bool DidPlayerWin()
+        private bool IsNotGameOver()
         {
             return _players[_currentPlayerIndex].Purse != 6;
         }
