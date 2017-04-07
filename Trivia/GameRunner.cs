@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Trivia
 {
@@ -9,7 +10,7 @@ namespace Trivia
 
         public static void Main(String[] args)
         {
-            var aGame = new Game();
+            var aGame = new Game(new QuestionRepository().GetQuestions());
 
             aGame.Add("Chet");
             aGame.Add("Pat");

@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,7 +19,7 @@ namespace Trivia
             var question = (from q in _questions
                             where q.Category == category
                             select q).First();
-        
+
             _questions.Remove(question);
             return question;
         }

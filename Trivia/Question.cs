@@ -1,8 +1,4 @@
-﻿
-
-using System;
-
-namespace Trivia
+﻿namespace Trivia
 {
     public enum Category { Pop, Science, Sports, Rock }
     public class Question

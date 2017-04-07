@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Trivia
 {
@@ -13,15 +12,19 @@ namespace Trivia
         private int _currentPlayerIndex;
         private Player _currentPlayer;
 
-        public Game()
+        public Game(List<Question> questions)
         {
-            for (var i = 0; i < 50; i++)
+            foreach (var question in questions)
             {
-                _board.AddQuestion(new Question { Text = $"Pop Question {i}", Category = Category.Pop });
-                _board.AddQuestion(new Question { Text = $"Science Question {i}", Category = Category.Science });
-                _board.AddQuestion(new Question { Text = $"Sports Question {i}", Category = Category.Sports });
-                _board.AddQuestion(new Question { Text = $"Rock Question {i}", Category = Category.Rock });
+                _board.AddQuestion(question);
             }
+            //for (var i = 0; i < 50; i++)
+            //{
+            //    _board.AddQuestion(new Question { Text = $"Pop Question {i}", Category = Category.Pop });
+            //    _board.AddQuestion(new Question { Text = $"Science Question {i}", Category = Category.Science });
+            //    _board.AddQuestion(new Question { Text = $"Sports Question {i}", Category = Category.Sports });
+            //    _board.AddQuestion(new Question { Text = $"Rock Question {i}", Category = Category.Rock });
+            //}
         }
 
         public void Add(string playerName)
