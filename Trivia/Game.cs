@@ -5,6 +5,7 @@ namespace Trivia
 {
     public class Game
     {
+        private readonly Random _random;
         private readonly List<Player> _players = new List<Player>();
         private readonly Board _board = new Board();
 
@@ -12,31 +13,26 @@ namespace Trivia
         private int _currentPlayerIndex;
         private Player _currentPlayer;
 
-        public Game(List<Question> questions)
+        public Game(List<Question> questions, Random random)
         {
+            _random = random;
             foreach (var question in questions)
             {
                 _board.AddQuestion(question);
             }
-            //for (var i = 0; i < 50; i++)
-            //{
-            //    _board.AddQuestion(new Question { Text = $"Pop Question {i}", Category = Category.Pop });
-            //    _board.AddQuestion(new Question { Text = $"Science Question {i}", Category = Category.Science });
-            //    _board.AddQuestion(new Question { Text = $"Sports Question {i}", Category = Category.Sports });
-            //    _board.AddQuestion(new Question { Text = $"Rock Question {i}", Category = Category.Rock });
-            //}
         }
 
-        public void Add(string playerName)
+        public void Add(Player player)
         {
-            _players.Add(new Player { Name = playerName });
+            _players.Add(player);
             _currentPlayer = _players[0];
-            Console.WriteLine($"{playerName} was added");
+            Console.WriteLine($"{player.Name} was added");
             Console.WriteLine($"They are player number {_players.Count}");
         }
 
-        public void Roll(int roll)
+        public void Roll()
         {
+            var roll = _currentPlayer.RollDice(_random);
             Console.WriteLine($"{_currentPlayer} is the current player");
             Console.WriteLine($"They have rolled a {roll}");
 

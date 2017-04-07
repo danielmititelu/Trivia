@@ -10,20 +10,18 @@ namespace Trivia
 
         public static void Main(String[] args)
         {
-            var aGame = new Game(new QuestionRepository().GetQuestions());
+            var random = new Random();
+            if (args.Length == 1) random = new Random(int.Parse(args[0]));
 
-            aGame.Add("Chet");
-            aGame.Add("Pat");
-            aGame.Add("Sue");
-
-            var rand = new Random();
-            if (args.Length == 1) rand = new Random(int.Parse(args[0]));
+            var aGame = new Game(new QuestionRepository().GetQuestions(), random);
+            aGame.Add(new Player { Name = "Chet" });
+            aGame.Add(new Player { Name = "Pat" });
+            aGame.Add(new Player { Name = "Sue" });
 
             do
             {
-                var die = rand.Next(5) + 1;
-                aGame.Roll(die);
-                _isGameOver = rand.Next(9) == 7 ? aGame.GiveWrongAnswer() : aGame.GiveCorrectAnswer();
+                aGame.Roll();
+                _isGameOver = random.Next(9) == 7 ? aGame.GiveWrongAnswer() : aGame.GiveCorrectAnswer();
             } while (!_isGameOver);
         }
     }
