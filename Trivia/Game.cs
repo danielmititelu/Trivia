@@ -24,11 +24,6 @@ namespace Trivia
             }
         }
 
-        public bool IsPlayable()
-        {
-            return _players.Count > 3;
-        }
-
         public void Add(string playerName)
         {
             _players.Add(new Player { Name = playerName });
