@@ -20,7 +20,7 @@ namespace Trivia
 
             do
             {
-                aGame.Roll();
+                aGame.NextTurn();
                 _isGameOver = random.Next(9) == 7 ? aGame.GiveWrongAnswer() : aGame.GiveCorrectAnswer();
             } while (!_isGameOver);
         }

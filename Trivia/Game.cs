@@ -30,7 +30,7 @@ namespace Trivia
             Console.WriteLine($"They are player number {_players.Count}");
         }
 
-        public void Roll()
+        public void NextTurn()
         {
             var roll = _currentPlayer.RollDice(_random);
             Console.WriteLine($"{_currentPlayer} is the current player");
