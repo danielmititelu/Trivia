@@ -5,9 +5,6 @@ namespace Trivia
 {
     public class GameRunner
     {
-
-        private static bool _isGameOver;
-
         public static void Main(String[] args)
         {
             var random = new Random();
@@ -21,8 +18,11 @@ namespace Trivia
             do
             {
                 aGame.NextTurn();
-                _isGameOver = random.Next(9) == 7 ? aGame.GiveWrongAnswer() : aGame.GiveCorrectAnswer();
-            } while (!_isGameOver);
+                if (random.Next(9) == 7)
+                    aGame.GiveWrongAnswer();
+                else
+                    aGame.GiveCorrectAnswer();
+            } while (!aGame.IsGameOver());
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Trivia
 {
@@ -109,9 +110,9 @@ namespace Trivia
             return winner;
         }
 
-        private bool IsGameOver()
+        public bool IsGameOver()
         {
-            return _players[_currentPlayerIndex].Purse == 6;
+            return _players.Any(player => player.Purse == 6);
         }
     }
 }
