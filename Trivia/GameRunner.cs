@@ -18,10 +18,7 @@ namespace Trivia
             do
             {
                 aGame.NextTurn();
-                if (random.Next(9) == 7)
-                    aGame.GiveWrongAnswer();
-                else
-                    aGame.GiveCorrectAnswer();
+
             } while (!aGame.IsGameOver());
         }
     }

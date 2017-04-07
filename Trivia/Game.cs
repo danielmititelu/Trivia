@@ -48,6 +48,11 @@ namespace Trivia
 
             if (_currentPlayer.IsInPenaltyBox && _currentPlayer.IsGettingOutOfPenaltyBox || !_currentPlayer.IsInPenaltyBox)
                 MovePlayer(roll);
+
+            if (_random.Next(9) == 7)
+                GiveWrongAnswer();
+            else
+                GiveCorrectAnswer();
         }
 
         private void MovePlayer(int roll)
