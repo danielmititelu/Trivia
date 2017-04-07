@@ -22,7 +22,7 @@ namespace Trivia.UnitTests
                 var path = codebase.LocalPath;
                 var expected = File.ReadAllText(Path.Combine(Directory.GetParent(path).FullName, "..", "..", "GoldenMasters", $"ExpectedOutput{seed}.txt"));
 
-                Assert.AreEqual(expected, actual);
+                Assert.AreEqual(expected, actual, $"Failed for seed: {seed}");
             }
         }
 
