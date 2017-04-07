@@ -5,6 +5,7 @@
     {
         public string Text { get; set; }
         public Category Category { get; set; }
+        public string Answer { get; set; }
 
         public override string ToString()
         {

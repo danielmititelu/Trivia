@@ -15,6 +15,10 @@ namespace Trivia
             return random.Next(5) + 1;
         }
 
+        public string AskQuestion(Question question, Random random)
+        {
+            return random.Next(9) == 7 ? "Incorrect Answer" : question.Answer;
+        }
         public override string ToString()
         {
             return Name;
