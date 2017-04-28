@@ -52,11 +52,6 @@ namespace Trivia
                 AskQuestion();
             }
 
-            if (_random.Next(9) == 7)
-                GiveWrongAnswer();
-            else
-                GiveCorrectAnswer();
-
             PassTurnToNextPlayer();
         }
 
@@ -73,6 +68,11 @@ namespace Trivia
         {
             var question = _board.GetQuestion(_currentPlayer.Place);
             Console.WriteLine(question);
+
+            if (_random.Next(9) == 7)
+                GiveWrongAnswer();
+            else
+                GiveCorrectAnswer();
         }
 
         private Category CurrentCategory()

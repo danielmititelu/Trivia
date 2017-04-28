@@ -107,9 +107,9 @@ Sue is the current player
 They have rolled a 4
 Sue is not getting out of the penalty box
 Chet is the current player
-They have rolled a 1
-Chet's new location is 6
-The category is Sports
-Sports Question 5
+They have rolled a 3
+Chet's new location is 8
+The category is Pop
+Pop Question 3
 Answer was correct!!!!
 Chet now has 6 Gold Coins.

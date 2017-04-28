@@ -106,16 +106,9 @@ Sue is the current player
 They have rolled a 2
 Sue is not getting out of the penalty box
 Chet is the current player
-They have rolled a 3
-Chet's new location is 7
-The category is Rock
-Rock Question 1
-Question was incorrectly answered
-Chet was sent to the penalty box
-Pat is the current player
-They have rolled a 3
-Pat's new location is 3
-The category is Rock
-Rock Question 2
+They have rolled a 4
+Chet's new location is 8
+The category is Pop
+Pop Question 3
 Answer was correct!!!!
-Pat now has 6 Gold Coins.
+Chet now has 6 Gold Coins.

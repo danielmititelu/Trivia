@@ -101,13 +101,13 @@ Pat is the current player
 They have rolled a 2
 Pat is not getting out of the penalty box
 Sue is the current player
-They have rolled a 5
+They have rolled a 1
 Sue is getting out of the penalty box
-Sue's new location is 4
+Sue's new location is 0
 The category is Pop
 Pop Question 3
-Answer was correct!!!!
-Sue now has 4 Gold Coins.
+Question was incorrectly answered
+Sue was sent to the penalty box
 Chet is the current player
 They have rolled a 4
 Chet's new location is 10

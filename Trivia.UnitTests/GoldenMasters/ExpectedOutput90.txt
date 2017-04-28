@@ -92,10 +92,10 @@ Science Question 3
 Answer was correct!!!!
 Chet now has 5 Gold Coins.
 Pat is the current player
-They have rolled a 2
-Pat's new location is 4
-The category is Pop
-Pop Question 4
+They have rolled a 3
+Pat's new location is 5
+The category is Science
+Science Question 4
 Answer was correct!!!!
 Pat now has 5 Gold Coins.
 Sue is the current player
@@ -110,6 +110,6 @@ Chet is the current player
 They have rolled a 3
 Chet's new location is 4
 The category is Pop
-Pop Question 5
+Pop Question 4
 Answer was correct!!!!
 Chet now has 6 Gold Coins.
