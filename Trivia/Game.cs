@@ -68,11 +68,11 @@ namespace Trivia
         {
             var question = _board.GetQuestion(_currentPlayer.Place);
             Console.WriteLine(question);
-
-            if (_random.Next(9) == 7)
-                GiveWrongAnswer();
-            else
+            var answer = _currentPlayer.AskQuestion(question, _random);
+            if (answer == question.Answer)
                 GiveCorrectAnswer();
+            else
+                GiveWrongAnswer();
         }
 
         private Category CurrentCategory()
