@@ -47,12 +47,17 @@ namespace Trivia
             }
 
             if (_currentPlayer.IsInPenaltyBox && _currentPlayer.IsGettingOutOfPenaltyBox || !_currentPlayer.IsInPenaltyBox)
+            {
                 MovePlayer(roll);
+                AskQuestion();
+            }
 
             if (_random.Next(9) == 7)
                 GiveWrongAnswer();
             else
                 GiveCorrectAnswer();
+
+            PassTurnToNextPlayer();
         }
 
         private void MovePlayer(int roll)
@@ -62,7 +67,6 @@ namespace Trivia
 
             Console.WriteLine($"{_currentPlayer}'s new location is {_currentPlayer.Place}");
             Console.WriteLine($"The category is {CurrentCategory()}");
-            AskQuestion();
         }
 
         private void AskQuestion()
@@ -76,25 +80,23 @@ namespace Trivia
             return _board.GetCategory(_currentPlayer.Place);
         }
 
-        public bool GiveCorrectAnswer()
+        public void GiveCorrectAnswer()
         {
             if (_currentPlayer.IsInPenaltyBox && _currentPlayer.IsGettingOutOfPenaltyBox || !_currentPlayer.IsInPenaltyBox)
-                return DoWhenPlayerAnswersCorrectly();
-
-            var winner = IsGameOver();
-            PassTurnToNextPlayer();
-            return winner;
+                DoWhenPlayerAnswersCorrectly();
+        }
+        public void GiveWrongAnswer()
+        {
+            Console.WriteLine("Question was incorrectly answered");
+            Console.WriteLine($"{_currentPlayer} was sent to the penalty box");
+            _currentPlayer.IsInPenaltyBox = true;
         }
 
-        private bool DoWhenPlayerAnswersCorrectly()
+        private void DoWhenPlayerAnswersCorrectly()
         {
             Console.WriteLine("Answer was correct!!!!");
             _players[_currentPlayerIndex].Purse++;
             Console.WriteLine($"{_currentPlayer} now has {_currentPlayer.Purse} Gold Coins.");
-
-            var winner = IsGameOver();
-            PassTurnToNextPlayer();
-            return winner;
         }
 
         private void PassTurnToNextPlayer()
@@ -102,17 +104,6 @@ namespace Trivia
             _currentPlayerIndex++;
             if (_currentPlayerIndex == _players.Count) _currentPlayerIndex = 0;
             _currentPlayer = _players[_currentPlayerIndex];
-        }
-
-        public bool GiveWrongAnswer()
-        {
-            Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine($"{_currentPlayer} was sent to the penalty box");
-            _currentPlayer.IsInPenaltyBox = true;
-
-            var winner = IsGameOver();
-            PassTurnToNextPlayer();
-            return winner;
         }
 
         public bool IsGameOver()
