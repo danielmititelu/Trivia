@@ -11,9 +11,9 @@ namespace Trivia
             if (args.Length == 1) random = new Random(int.Parse(args[0]));
 
             var aGame = new Game(new QuestionRepository().GetQuestions(), random);
-            aGame.Add(new Player { Name = "Chet" });
-            aGame.Add(new Player { Name = "Pat" });
-            aGame.Add(new Player { Name = "Sue" });
+            aGame.Add(new BotPlayer { Name = "Chet" });
+            aGame.Add(new BotPlayer { Name = "Pat" });
+            aGame.Add(new BotPlayer { Name = "Sue" });
 
             do
             {

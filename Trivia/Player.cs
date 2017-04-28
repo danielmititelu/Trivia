@@ -2,7 +2,7 @@
 
 namespace Trivia
 {
-    public class Player
+    public abstract class Player
     {
         public string Name { get; set; }
         public int Purse { get; set; }
@@ -15,10 +15,7 @@ namespace Trivia
             return random.Next(5) + 1;
         }
 
-        public string AskQuestion(Question question, Random random)
-        {
-            return random.Next(9) == 7 ? "Incorrect Answer" : question.Answer;
-        }
+        public abstract string AskQuestion(Question question, Random random);
         public override string ToString()
         {
             return Name;
