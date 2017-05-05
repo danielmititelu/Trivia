@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Board.cs" />
+    <Compile Include="HumanPlayer.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameRunner.cs" />
     <Compile Include="BotPlayer.cs" />
