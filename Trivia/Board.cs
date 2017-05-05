@@ -15,6 +15,9 @@ namespace Trivia
 
         public Question GetQuestion(int playerPlace)
         {
+            if (playerPlace < 0) throw new ArgumentException("Player place cannot be negative");
+            if (_questions.Count == 0) throw new InvalidOperationException("Board has no questions");
+
             var category = GetCategory(playerPlace);
             var question = (from q in _questions
                             where q.Category == category
